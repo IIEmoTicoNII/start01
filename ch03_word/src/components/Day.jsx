@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import dummy from "../db/data.json";
 import Word from "./word";
 import useFetch from "../hooks/useFetch";
@@ -9,7 +9,7 @@ export default function Day() {
   const { day } = useParams();
 
   const words = useFetch(`http://localhost:3010/words?day=${day}`);
-  // const [words, setWords] = useState([]);
+  // const [words, setWords] = useState([]); //hooks를 사용하지 않고 fetch를 사용한 경우.
   // useEffect(() => {
   //   fetch(`http://localhost:3010/words?day=${day}`)
   //     .then((res) => {
@@ -19,6 +19,7 @@ export default function Day() {
   //       setWords(data);
   //     });
   // }, [day]);
+
   //   const wordList = dummy.words.filter((word) => word.day === day); <- '==='를 사용하려면 json 파일의 숫자를 문자열로 일치시켜야함.
   const wordList = dummy.words.filter((word) => word.day == day); //- 선생님 코드
   return (
