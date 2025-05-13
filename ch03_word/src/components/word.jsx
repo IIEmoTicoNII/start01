@@ -1,18 +1,58 @@
 import { useState } from "react";
 
-export default function Word({ word }) {
-
-    // 한국어를 보여줄것인지
+export default function Word({ word: w }) {
+  const [word, setWord] = useState(w);
+  // 한국어를 보여줄것인지
   const [isShow, setIsShow] = useState(false);
   //일이 마무리되면 회색처리
-  const [isDone, setIsDone] = useState(word.isDone);
+  const [isDone, setIsDone] = useState(w.isDone);
+  //로딩
+  const [loading, setLoading] = useState(false);
 
   function toggleShow() {
     setIsShow(!isShow);
   }
 
+  // function toggleDone() {
+  //   setIsDone(!isDone);
+  // }
   function toggleDone() {
-    setIsDone(!isDone);
+    fetch(`http://localhost:3010/words/${w.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...w,
+        isDone: !isDone,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        setIsDone(!isDone);
+      }
+    });
+  }
+  function del() {
+    if (window.confirm("삭제 하시겠습니까?")) {
+      setLoading(true);
+      fetch(`http://localhost:3010/words/${word.id}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (res.ok) {
+            setWord({ id: 0 });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("서버와의 통신에 문제가 발생했습니다.");
+        })
+        .finally(() => setLoading(false)); // 요청 완료 후 로딩 상태 해제
+    }
+  }
+
+  if (word.id === 0) {
+    return null;
   }
 
   return (
@@ -20,11 +60,16 @@ export default function Word({ word }) {
       <td>
         <input type="checkbox" checked={isDone} onChange={toggleDone} />
       </td>
-      <td>{word.eng}</td>
-      <td>{isShow && word.kor}</td>
+      <td>{w.eng}</td>
+      <td>{isShow && w.kor}</td>
       <td>
         <button onClick={toggleShow}>뜻 {isShow ? "숨기기" : "보기"}</button>
-        <button className="btn_del">삭제</button>
+        {/* <button onClick={del} className="btn_del">
+          삭제
+        </button> */}
+        <button onClick={del} className="btn_del" disabled={loading}>
+          {loading ? "삭제 중..." : "삭제"}
+        </button>
       </td>
     </tr>
   );

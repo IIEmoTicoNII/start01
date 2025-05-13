@@ -11,6 +11,10 @@
     {
       "id": "3",
       "day": 3
+    },
+    {
+      "id": "4bea",
+      "day": 4
     }
   ],
   "words": [
@@ -22,17 +26,10 @@
       "isDone": false
     },
     {
-      "id": "2",
-      "day": 1,
-      "eng": "apple",
-      "kor": "사과",
-      "isDone": false
-    },
-    {
       "day": 1,
       "eng": "examplebook",
       "kor": "예제책",
-      "isDone": true,
+      "isDone": false,
       "id": "3"
     },
     {
@@ -54,6 +51,20 @@
       "day": 3,
       "eng": "pencil",
       "kor": "연필",
+      "isDone": false
+    },
+    {
+      "id": "fba5",
+      "day": "4",
+      "eng": "apple",
+      "kor": "사과",
+      "isDone": false
+    },
+    {
+      "id": "13f4",
+      "day": "1",
+      "eng": "computer",
+      "kor": "콤퓨타",
       "isDone": false
     }
   ]
