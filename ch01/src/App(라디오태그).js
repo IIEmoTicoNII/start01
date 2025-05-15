@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AgeSelect() {
+function RadioButtonGroup() {
   const ageBands = [
     "영유아/아동",
     "10대",
@@ -16,20 +16,20 @@ function AgeSelect() {
   return (
     <div>
       <h1>연령대 선택</h1>
-      <select onChange={(e) => setSelectedAgeBand(e.target.value)}>
-        <option disabled selected>
-          -- 나이대 선택 --
-        </option>
+      <div>
         {ageBands.map((ageBand) => (
-          <option
-            key={ageBand}
-            value={ageBand}
-            selected={ageBand === selectedAgeBand}
-          >
+          <label key={ageBand}>
+            <input
+              type="radio"
+              name="ageBand"
+              value={ageBand}
+              checked={selectedAgeBand === ageBand}
+              onChange={() => setSelectedAgeBand(ageBand)}
+            />
             {ageBand}
-          </option>
+          </label>
         ))}
-      </select>
+      </div>
       <p>현재 값: {selectedAgeBand}</p>
     </div>
   );
@@ -38,7 +38,7 @@ function AgeSelect() {
 export default function App() {
   return (
     <div>
-      <AgeSelect />
+      <RadioButtonGroup />
     </div>
   );
 }

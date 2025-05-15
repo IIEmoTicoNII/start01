@@ -9,7 +9,8 @@ export default function Day() {
   //<Route path="/day/:day" element={<Day></Day>} />
   const { day } = useParams();
 
-  const { data, error } = fetchWords(day);
+  // const { data, error } = fetchWords(day); // - supabase 연동작업 해보기.
+
   // const words = useFetch(`http://localhost:3010/words?day=${day}`);
   // const [words, setWords] = useState([]); //hooks를 사용하지 않고 fetch를 사용한 경우.
   // useEffect(() => {
